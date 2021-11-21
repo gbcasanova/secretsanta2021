@@ -2,7 +2,7 @@ class Menu extends Phaser.Scene
 {
     constructor()
     {
-        super({key: "Menu"})
+        super("Menu");
     }
 
     preload()
@@ -12,7 +12,8 @@ class Menu extends Phaser.Scene
 
     create()
     {
-		this.add.text(10, 10, "Test")
+		//
+		
     }
 
     update(time, delta)
