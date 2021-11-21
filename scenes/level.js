@@ -7,17 +7,17 @@ class Level extends Phaser.Scene
 
     preload()
     {
-        this.load.aseprite({ // Load fallguy sprite.
-			key: "fallguy",
-			textureURL: "sprites/fallguy.png",
-			atlasURL: "sprites/fallguy.json"
+        this.load.aseprite({ // Load player sprite.
+			key: "fallguy_steve",
+			textureURL: "sprites/fallguy_steve.png",
+			atlasURL: "sprites/fallguy_steve.json"
 		});
     }
 
     create()
     {
-		this.anims.createFromAseprite('fallguy');
-		this.add.sprite(40, 40).play({key:"walking", repeat: -1});
+		this.anims.createFromAseprite('fallguy_steve');
+		this.add.sprite(40, 40).play({key:"fgs_idle", repeat: -1});
 		
     }
 
