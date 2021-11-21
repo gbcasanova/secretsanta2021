@@ -16,9 +16,7 @@ class Level extends Phaser.Scene
 
     create()
     {
-		this.anims.createFromAseprite('fallguy_steve');
-		this.add.sprite(40, 40).play({key:"fgs_idle", repeat: -1});
-		
+		new Player(this, 90, 90)
     }
 
     update(time, delta)
