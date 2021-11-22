@@ -34,11 +34,11 @@ class Player extends Phaser.Physics.Arcade.Sprite
 			right: scene.input.keyboard.addKey('D'),
 		};
 		
-		// Movement;
-		this.drag   = 100
-		this.accel  = 100
-		this.drag   = 100
-		this.maxSpd = 100
+		// Movement.
+		this.drag   = 100;
+		this.accel  = 100;
+		this.drag   = 100;
+		this.maxSpd = 100;
 		
 	}
 	
