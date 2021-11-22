@@ -7,16 +7,16 @@ class Level extends Phaser.Scene
 
     preload()
     {
-        this.load.aseprite({ // Load player sprite.
-			key: "fallguy_steve",
-			textureURL: "sprites/fallguy_steve.png",
-			atlasURL: "sprites/fallguy_steve.json"
-		});
+        this.load.spritesheet("fallguy_steve", "sprites/fallguy_steve.png", {frameWidth: 64, frameHeight: 80})
+		this.load.image("block", "sprites/block.png")
     }
 
     create()
     {
-		new Player(this, 90, 90)
+		this.player = new Player(this, 90, 90)
+		
+		let sprite = this.add.image(300, 300, "block")
+		this.physics.world.enable([sprite]);
     }
 
     update(time, delta)
