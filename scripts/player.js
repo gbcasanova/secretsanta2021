@@ -31,8 +31,15 @@ class Player extends Phaser.Physics.Arcade.Sprite
                 frameRate: fr,
                 repeat: -1
             }),
+			
+			this.anims.create ({
+                key: "run_back",
+                frames: this.anims.generateFrameNumbers(this.texture.key, {start: 12, end: 17}),
+                frameRate: fr,
+                repeat: -1
+            }),
 		];
-		this.play("idle_back");
+		//this.play("idle_back");
 		
 		// Keyboard.
 		this.keys = {
@@ -43,18 +50,22 @@ class Player extends Phaser.Physics.Arcade.Sprite
 		};
 		
 		// Movement.
+		this.moving = false;
 		this.accel  = 400;
 		this.drag   = 150;
 		this.maxSpd = 150;
+		
+		this.front = true;
 		
 	}
 	
 	movement()
 	{
+		// Limit movement.
 		this.setDrag(this.drag, this.drag);
-		this.body.setMaxSpeed(this.maxSpd)
+		this.body.setMaxSpeed(this.maxSpd);
 		
-		// Horizontal movement
+		// Horizontal movement.
 		if (this.keys.right.isDown) 
 		{
 			this.setAccelerationX(this.accel);
@@ -83,11 +94,61 @@ class Player extends Phaser.Physics.Arcade.Sprite
 		}
 	}
 	
+	animation()
+	{
+		let accelX = this.body.acceleration.x;
+		let accelY = this.body.acceleration.y;
+		
+		if (accelX != 0 || accelY != 0)
+		{
+			// Vertical running animation.
+			if (accelY > 0) 
+			{
+				this.front = true;
+				this.play("run_front", true);
+			}
+			else if (accelY < 0)
+			{
+				this.front = false;
+				this.play("run_back", true);
+			}
+			
+			// Horizontal running animation.
+			if (accelX > 0 || accelX < 0)
+			{
+				if (this.front)
+				{
+					this.play("run_front", true);
+				}
+				else
+				{
+					this.play("run_back", true);
+				}
+			}
+			
+		}
+		else
+		{
+			// Idle animation.
+			if (this.front)
+			{
+				this.play("idle_front", true);
+			}
+			else
+			{
+				this.play("idle_back", true);
+			}
+		}
+		
+
+	}
+	
 	preUpdate(time, delta)
 	{
 		super.preUpdate(time, delta)
 		
 		this.movement();
+		this.animation();
 		
 	}
 }
