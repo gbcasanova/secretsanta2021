@@ -8,6 +8,7 @@ class Level extends Phaser.Scene
     preload()
     {
         this.load.spritesheet("fallguy_steve", "sprites/fallguy_steve.png", {frameWidth: 64, frameHeight: 80})
+		
 		this.load.image("block", "sprites/block.png")
     }
 
