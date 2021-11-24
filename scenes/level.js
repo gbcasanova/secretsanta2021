@@ -7,17 +7,22 @@ class Level extends Phaser.Scene
 
     preload()
     {
-        this.load.spritesheet("fallguy_steve", "sprites/fallguy_steve.png", {frameWidth: 64, frameHeight: 80})
+        this.load.spritesheet("fallguy_steve", "sprites/fallguy_steve.png", {frameWidth: 64, frameHeight: 80});
 		
-		this.load.image("block", "sprites/block.png")
+		this.load.image("tileset", "sprites/tileset.png");
+		this.load.tilemapTiledJSON("tilemap", "tilemaps/test.json");
     }
 
     create()
     {
-		this.player = new Player(this, 90, 90)
+		this.input.setDefaultCursor('url(sprites/cursors/arrow.cur), pointer');
 		
-		let sprite = this.add.image(300, 300, "block")
-		this.physics.world.enable([sprite]);
+		// Tilemap.
+		const map = this.make.tilemap({key: "tilemap"});
+		const tileset = map.addTilesetImage("tileset", "tileset");
+		map.createLayer("ground", tileset)
+		
+		this.player = new Player(this, 90, 90);
     }
 
     update(time, delta)
