@@ -57,6 +57,10 @@ class Player extends Phaser.Physics.Arcade.Sprite
 		
 		this.front = true;
 		
+		// Camera.
+		let camera = scene.cameras.main;
+		camera.startFollow(this, false, 0.1, 0.1);
+		
 	}
 	
 	movement()
