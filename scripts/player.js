@@ -99,10 +99,10 @@ class Player extends Phaser.Physics.Arcade.Sprite
 	
 	animation()
 	{
-		let accelX = this.body.acceleration.x;
-		let accelY = this.body.acceleration.y;
+		// Change the direction of the sprite
+		// and take the camera into consideration.
 		let mousePointer = this.scene.input.mousePointer;
-		let camera = this.scene.cameras.main.worldView
+		let camera = this.scene.cameras.main.worldView;
 		
 		if (mousePointer.y + camera.y > this.y)
 		{
@@ -112,6 +112,10 @@ class Player extends Phaser.Physics.Arcade.Sprite
 		{
 			this.front = false;
 		}
+		
+		// Play running animation.
+		let accelX = this.body.acceleration.x;
+		let accelY = this.body.acceleration.y;
 		
 		if (accelX != 0 || accelY != 0)
 		{
@@ -124,7 +128,7 @@ class Player extends Phaser.Physics.Arcade.Sprite
 				this.play("run_back", true);
 			}
 		}
-		else
+		else // Play Idle Animation.
 		{
 			if (this.front)
 			{
