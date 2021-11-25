@@ -20,7 +20,9 @@ class Level extends Phaser.Scene
 		// Tilemap.
 		const map = this.make.tilemap({key: "tilemap"});
 		const tileset = map.addTilesetImage("tileset", "tileset");
+		
 		map.createLayer("ground", tileset)
+		map.createLayer("deco", tileset)
 		
 		this.player = new Player(this, 90, 90);
     }
