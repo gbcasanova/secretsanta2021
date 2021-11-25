@@ -39,7 +39,6 @@ class Player extends Phaser.Physics.Arcade.Sprite
                 repeat: -1
             }),
 		];
-		//this.play("idle_back");
 		
 		// Keyboard.
 		this.keys = {
@@ -102,38 +101,31 @@ class Player extends Phaser.Physics.Arcade.Sprite
 	{
 		let accelX = this.body.acceleration.x;
 		let accelY = this.body.acceleration.y;
+		let mousePointer = this.scene.input.mousePointer;
+		let camera = this.scene.cameras.main.worldView
+		
+		if (mousePointer.y + camera.y > this.y)
+		{
+			this.front = true;
+		}
+		else if  (mousePointer.y + camera.y < this.y)
+		{
+			this.front = false;
+		}
 		
 		if (accelX != 0 || accelY != 0)
 		{
-			// Vertical running animation.
-			if (accelY > 0) 
+			if (this.front)
 			{
-				this.front = true;
 				this.play("run_front", true);
 			}
-			else if (accelY < 0)
+			else
 			{
-				this.front = false;
 				this.play("run_back", true);
 			}
-			
-			// Horizontal running animation.
-			if (accelX > 0 || accelX < 0)
-			{
-				if (this.front)
-				{
-					this.play("run_front", true);
-				}
-				else
-				{
-					this.play("run_back", true);
-				}
-			}
-			
 		}
 		else
 		{
-			// Idle animation.
 			if (this.front)
 			{
 				this.play("idle_front", true);
@@ -143,7 +135,6 @@ class Player extends Phaser.Physics.Arcade.Sprite
 				this.play("idle_back", true);
 			}
 		}
-		
 
 	}
 	
