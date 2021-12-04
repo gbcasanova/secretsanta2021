@@ -8,19 +8,19 @@ class Level extends Phaser.Scene
     preload()
     {
         this.load.spritesheet("fallguy_steve", "sprites/fallguy_steve.png", {frameWidth: 64, frameHeight: 80});
+		this.load.spritesheet("trees", "sprites/trees.png", {frameWidth: 128, frameHeight: 192});
 		
 		this.load.image("tileset", "sprites/tileset.png");
 		this.load.tilemapTiledJSON("tilemap", "tilemaps/test.json");
 		
-		this.load.image("tools_selector", "sprites/tools_selector.png")
-		this.load.image("outline", "sprites/outline.png")
-		this.load.image("items_showcase", "sprites/items_showcase.png")
+		this.load.spritesheet("cursors", "sprites/gui/cursors.png", {frameWidth: 34, frameHeight: 34})
+		this.load.image("tools_selector", "sprites/gui/tools_selector.png")
+		this.load.image("outline", "sprites/gui/outline.png")
+		this.load.image("items_showcase", "sprites/gui/items_showcase.png")
     }
 	
 	create_gui()
-	{
-		this.current_tool = 0; // 0 - Pickaxe | 1 - Shovel | 2 - Axe | 3 - Bucket
-		
+	{	
 		// Tools sprite.
 		this.tools_selector = this.add.sprite(config.width/2, config.height - 64, "tools_selector");
 		this.tools_selector.setScrollFactor(0); // Tools image.
@@ -52,18 +52,19 @@ class Level extends Phaser.Scene
 		// Change outline position based on tool.
         this.outline.x = 128 + 64*this.current_tool
 		
-		if (this.current_tool == 0)
-			this.input.setDefaultCursor('url(sprites/cursors/pickaxe.cur), pointer');
-		else if (this.current_tool == 1)
-			this.input.setDefaultCursor('url(sprites/cursors/shovel.cur), pointer');
-		else if (this.current_tool == 2)
-			this.input.setDefaultCursor('url(sprites/cursors/axe.cur), pointer');
-		else if (this.current_tool == 3)
-			this.input.setDefaultCursor('url(sprites/cursors/bucket.cur), pointer');
+		// Change cursor.
+		this.cursor.setFrame(this.current_tool)
 	}
 
     create()
     {
+		this.input.on('pointerdown', function (pointer) {
+			this.input.mouse.requestPointerLock();
+		}, this);
+		
+		this.cursor = new Cursor(this);
+		
+		this.current_tool = 0; // 0 - Pickaxe | 1 - Shovel | 2 - Axe | 3 - Bucket
 		
 		// Tilemap.
 		const map = this.make.tilemap({key: "tilemap"});
@@ -71,9 +72,11 @@ class Level extends Phaser.Scene
 		map.createLayer("ground", tileset);
 		map.createLayer("deco", tileset);
 		
-		this.player = new Player(this, 90, 90);;
+		this.player = new Player(this, 90, 90);
 		
 		this.create_gui();
+		
+		new Tree(this, 0, 0)
     }
 
     update(time, delta)
