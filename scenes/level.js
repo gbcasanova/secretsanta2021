@@ -22,13 +22,15 @@ class Level extends Phaser.Scene
 	create_gui()
 	{	
 		// Tools sprite.
-		this.tools_selector = this.add.sprite(config.width/2, config.height - 64, "tools_selector");
-		this.tools_selector.setScrollFactor(0); // Tools image.
+		this.tools_selector = this.add.sprite(config.width/2, config.height - 64, "tools_selector")
+			.setScrollFactor(0) // Tools image.
+			.setDepth(2000);
 		
 		// Outline sprite.
 		this.outline = this.add.sprite(128 + 64*this.current_tool, 384, "outline")
 			.setScrollFactor(0)
-			.setOrigin(0, 0);
+			.setOrigin(0, 0)
+			.setDepth(2000);
 		
 		// Wheel selection.
 		this.input.on('wheel', function(pointer, currentlyOver, dx, dy, dz, event)
@@ -44,7 +46,8 @@ class Level extends Phaser.Scene
 		// Items showcase sprite.
 		this.items_showcase = this.add.sprite(10, 10, "items_showcase")
 			.setScrollFactor(0)
-			.setOrigin(0, 0);		
+			.setOrigin(0, 0)
+			.setDepth(2000);
 	}
 	
 	update_gui()
@@ -58,25 +61,25 @@ class Level extends Phaser.Scene
 
     create()
     {
+		this.player = new Player(this, 120, 120);
+		this.current_tool = 0; // 0 - Pickaxe | 1 - Shovel | 2 - Axe | 3 - Bucket
+		
+		// Cursor.
+		this.cursor = new Cursor(this);
 		this.input.on('pointerdown', function (pointer) {
 			this.input.mouse.requestPointerLock();
 		}, this);
-		
-		this.cursor = new Cursor(this);
-		
-		this.current_tool = 0; // 0 - Pickaxe | 1 - Shovel | 2 - Axe | 3 - Bucket
 		
 		// Tilemap.
 		const map = this.make.tilemap({key: "tilemap"});
 		const tileset = map.addTilesetImage("tileset", "tileset");
 		map.createLayer("ground", tileset);
 		map.createLayer("deco", tileset);
+		this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
 		
-		this.player = new Player(this, 90, 90);
+		new Tree(this, 0, 0, 0)
 		
-		this.create_gui();
-		
-		new Tree(this, 0, 0)
+		this.create_gui(); // Create GUI interface.
     }
 
     update(time, delta)
