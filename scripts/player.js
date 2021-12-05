@@ -7,6 +7,7 @@ class Player extends Phaser.Physics.Arcade.Sprite
 		// Add to updatelist.
         scene.add.existing(this);
         scene.physics.add.existing(this);
+		//this.setCollideWorldBounds(true);
 		
 		// Animations.
 		let fr = 11;
@@ -53,7 +54,6 @@ class Player extends Phaser.Physics.Arcade.Sprite
 		this.accel  = 400;
 		this.drag   = 150;
 		this.maxSpd = 150;
-		
 		this.front = true;
 		
 		// Camera.
@@ -139,6 +139,8 @@ class Player extends Phaser.Physics.Arcade.Sprite
 				this.play("idle_back", true);
 			}
 		}
+		
+		this.depth = this.y + this.height/2;
 
 	}
 	
