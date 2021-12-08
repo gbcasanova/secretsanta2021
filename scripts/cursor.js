@@ -20,7 +20,7 @@ class Cursor extends Phaser.GameObjects.Sprite
 			}
 		}, this);
 		
-		this.depth = 1000;
+		this.depth = 9000;
 		this.setScrollFactor(0);
 		this.setOrigin(0, 0);
 	}
