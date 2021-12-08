@@ -59,6 +59,20 @@ class Level extends Phaser.Scene
 		this.cursor.setFrame(this.current_tool)
 	}
 
+	import_objects(layer)
+	{
+		// Import objects from layer.
+        layer.forEach(object => 
+		{
+			switch(object.type)
+			{
+				case "tree":
+					new Tree(this, object.x, object.y, 0);
+					break;
+			}
+		})
+	}
+	
     create()
     {
 		this.player = new Player(this, 120, 120);
@@ -71,13 +85,14 @@ class Level extends Phaser.Scene
 		}, this);
 		
 		// Tilemap.
-		const map = this.make.tilemap({key: "tilemap"});
-		const tileset = map.addTilesetImage("tileset", "tileset");
+		let map = this.make.tilemap({key: "tilemap"});
+		let tileset = map.addTilesetImage("tileset", "tileset");
 		map.createLayer("ground", tileset);
 		map.createLayer("deco", tileset);
-		this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
+		let objectlayer = map.getObjectLayer("objects")["objects"];
+		this.import_objects(objectlayer);
 		
-		new Tree(this, 0, 0, 0)
+		this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
 		
 		this.create_gui(); // Create GUI interface.
     }

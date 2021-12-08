@@ -9,6 +9,14 @@ class Player extends Phaser.Physics.Arcade.Sprite
         scene.physics.add.existing(this);
 		//this.setCollideWorldBounds(true);
 		
+		// Keyboard.
+		this.keys = {
+			up:    scene.input.keyboard.addKey('W'),
+			left:  scene.input.keyboard.addKey('A'),
+			down:  scene.input.keyboard.addKey('S'),
+			right: scene.input.keyboard.addKey('D'),
+		};
+		
 		// Animations.
 		let fr = 11;
 		let animations = [
@@ -40,14 +48,9 @@ class Player extends Phaser.Physics.Arcade.Sprite
                 repeat: -1
             }),
 		];
-		
-		// Keyboard.
-		this.keys = {
-			up:    scene.input.keyboard.addKey('W'),
-			left:  scene.input.keyboard.addKey('A'),
-			down:  scene.input.keyboard.addKey('S'),
-			right: scene.input.keyboard.addKey('D'),
-		};
+		this.body.setSize(36, 22);
+		this.body.setOffset(14, 58);
+		this.setOrigin(0.3, 1)
 		
 		// Movement.
 		this.moving = false;
@@ -139,9 +142,6 @@ class Player extends Phaser.Physics.Arcade.Sprite
 				this.play("idle_back", true);
 			}
 		}
-		
-		this.depth = this.y + this.height/2;
-
 	}
 	
 	preUpdate(time, delta)
@@ -151,5 +151,7 @@ class Player extends Phaser.Physics.Arcade.Sprite
 		this.movement();
 		this.animation();
 		
+		// I don't know what i'm doing anymore and at this point it's too late to care.
+		this.depth = this.y + this.displayHeight*1.2;
 	}
 }

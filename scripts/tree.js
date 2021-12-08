@@ -7,11 +7,15 @@ class Tree extends Phaser.Physics.Arcade.Sprite
 		// Add to updatelist.
         scene.add.existing(this);
 		scene.physics.add.existing(this);
+		
 		this.setImmovable(true)
-		
-		this.depth = this.y + this.height / 2;
-		
 		scene.physics.add.collider(this, scene.player)
+		
+		this.body.setSize(72, 9);
+		this.body.setOffset(31, 183);
+		this.setOrigin(0.3, 1)
+		
+		this.depth = this.y + this.displayHeight / 2;
 	}
 	
 	preUpdate(time, delta)
