@@ -5,6 +5,7 @@ var config = {
     width: 512,
     height: 480,
 	pixelArt: true,
+	roundPixels: true,
 	scale:
     {
         mode: Phaser.Scale.HEIGHT_CONTROLS_WIDTH,
