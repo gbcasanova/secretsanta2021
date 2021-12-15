@@ -80,9 +80,9 @@ class Level extends Phaser.Scene
 		
 		// Cursor.
 		this.cursor = new Cursor(this);
-		this.input.on('pointerdown', function (pointer) {
-			this.input.mouse.requestPointerLock();
-		}, this);
+		//this.input.on('pointerdown', function (pointer) {
+			//this.input.mouse.requestPointerLock();
+		//}, this);
 		
 		// Tilemap.
 		let map = this.make.tilemap({key: "tilemap"});
@@ -99,6 +99,6 @@ class Level extends Phaser.Scene
 
     update(time, delta)
     {
-		this.update_gui();
+		//this.update_gui();
     }
 }
