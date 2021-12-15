@@ -24,7 +24,7 @@ var config = {
         }
 	},
 	
-    scene: [SceneSelector, Menu, Level]
+    scene: [SceneSelector, Menu, Level, Cutscene]
 };
 
 var game = new Phaser.Game(config);
