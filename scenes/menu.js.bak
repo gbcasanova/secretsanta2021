@@ -36,7 +36,7 @@ class Menu extends Phaser.Scene
 					if (this.current_frame == 2) 
 					{
 						this.menu_image.on('pointerdown', function (pointer) {
-							this.scene.menu_image.setFrame(3);
+							this.scene.menu_image.setFrame(4);
 						});
 					}
 				},
