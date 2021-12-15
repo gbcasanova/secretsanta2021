@@ -12,6 +12,7 @@ class SceneSelector extends Phaser.Scene
 
     create()
     {
+		this.sound.stopAll();
 		this.add.text(8, 10, "Scene Select - G. Casanova 2021", {fontFamily: "Arial"})
 
         let i;

@@ -14,12 +14,16 @@ class Menu extends Phaser.Scene
     }
 
     create()
-    {
+    {	
 		// FOR THE LOVE OF GOD.
 		// THE CODE BELOW IS EXTREMELY CURSED.
-		// I DON'T KNOW WHAT I WAS DOING. YOU'LL PROBABLY WON'T EITHER.
+		// I DON'T KNOW WHAT I WAS DOING. YOU PROBABLY WON'T EITHER.
 		// DON'T TOUCH IT. DON'T EVEN THINK ABOUT IT.
 		// PEACE.
+		
+		this.debug_pressed = false
+		this.shift_key = this.input.keyboard.addKey('SHIFT');
+		this.debug_key = this.input.keyboard.addKey('D');
 		
 		this.cameras.main.fadeIn(6000);
 		this.sound.play("menusong");
@@ -56,9 +60,9 @@ class Menu extends Phaser.Scene
 								this.scene.menu_image.destroy()
 								let menuimage = this.scene.add.sprite(0, 0, "menui", 3).setOrigin(0, 0)
 								
-									new Button(this.scene, 344, 28, 0, function(){ // Play Button.
-										console.log("aaaa")}
-									)
+									new Button(this.scene, 344, 28, 0, function(button){ // Play Button.
+										button.scene.start("Cutscene");
+									}, this)
 									
 									new Button(this.scene, 344, 102, 2, function(){ // Casanova Button.
 										var url = 'https://casanovagames.itch.io/'
@@ -101,12 +105,17 @@ class Menu extends Phaser.Scene
 			callbackScope: this,
 			loop: 1
 		});
-		
-		
     }
 
     update(time, delta)
     {
-		//
+		if (!this.debug_pressed)
+		{
+			if (this.shift_key.isDown && this.debug_key.isDown)
+			{
+				this.debug_pressed = false;
+				this.scene.start("SceneSelector");
+			}
+		}
     }
 }
