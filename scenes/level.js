@@ -33,15 +33,23 @@ class Level extends Phaser.Scene
 			.setDepth(2000);
 		
 		// Wheel selection.
+		this.current_tool = 0; // 0 - Pickaxe | 1 - Shovel | 2 - Axe | 3 - Bucket
+		this.cursor = new Cursor(this);
+		this.cursor.setFrame(this.current_tool)
+		
 		this.input.on('wheel', function(pointer, currentlyOver, dx, dy, dz, event)
 		{
-			this.scene.current_tool += Math.sign(dy);
+			this.current_tool += Math.sign(dy);
 			
-			if (this.scene.current_tool < 0)
-				this.scene.current_tool = 0;
-			else if (this.scene.current_tool > 3)
-				this.scene.current_tool = 3;
-		});
+			if (this.current_tool >= 4)
+				this.current_tool = 0;
+			
+			if (this.current_tool <= -1)
+				this.current_tool = 3;
+			
+			this.cursor.setFrame(this.current_tool)
+			console.log(this.current_tool)
+		}, this);
 		
 		// Items showcase sprite.
 		this.items_showcase = this.add.sprite(10, 10, "items_showcase")
@@ -54,9 +62,6 @@ class Level extends Phaser.Scene
 	{
 		// Change outline position based on tool.
         this.outline.x = 128 + 64*this.current_tool
-		
-		// Change cursor.
-		this.cursor.setFrame(this.current_tool)
 	}
 
 	import_objects(layer)
@@ -75,11 +80,10 @@ class Level extends Phaser.Scene
 	
     create()
     {
+		this.cameras.main.fadeIn(1000);
+		this.create_gui(); // Create GUI interface.
 		this.player = new Player(this, 120, 120);
-		this.current_tool = 0; // 0 - Pickaxe | 1 - Shovel | 2 - Axe | 3 - Bucket
 		
-		// Cursor.
-		this.cursor = new Cursor(this);
 		//this.input.on('pointerdown', function (pointer) {
 			//this.input.mouse.requestPointerLock();
 		//}, this);
@@ -93,8 +97,6 @@ class Level extends Phaser.Scene
 		this.import_objects(objectlayer);
 		
 		this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
-		
-		this.create_gui(); // Create GUI interface.
     }
 
     update(time, delta)
