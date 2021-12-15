@@ -107,11 +107,11 @@ class Player extends Phaser.Physics.Arcade.Sprite
 		let mousePointer = this.scene.input.mousePointer;
 		let camera = this.scene.cameras.main.worldView;
 		
-		if (this.scene.cursor.y + camera.y > this.y)
+		if (this.scene.cursor.y + camera.y > this.y - this.displayHeight / 2)
 		{
 			this.front = true;
 		}
-		else if  (this.scene.cursor.y + camera.y < this.y)
+		else if  (this.scene.cursor.y + camera.y < this.y - this.displayHeight / 2)
 		{
 			this.front = false;
 		}
