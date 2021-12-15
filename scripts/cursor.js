@@ -8,16 +8,15 @@ class Cursor extends Phaser.GameObjects.Sprite
         scene.add.existing(this);
 		
 		scene.input.on('pointermove', function (pointer) {
-			if (scene.input.mouse.locked)
-			{
 				// Move pointer.
-				this.x += pointer.movementX;
-				this.y += pointer.movementY;
+				//this.x += pointer.movementX;
+				//this.y += pointer.movementY;
+				this.x = pointer.x
+				this.y = pointer.y
 				
 				// Force the cursor to stay on screen
 				this.x = Phaser.Math.Clamp(this.x, 0, config.width);
 				this.y = Phaser.Math.Clamp(this.y, 0, config.height);
-			}
 		}, this);
 		
 		this.depth = 9000;
