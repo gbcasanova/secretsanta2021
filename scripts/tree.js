@@ -13,7 +13,20 @@ class Tree extends Phaser.Physics.Arcade.Sprite
 		
 		this.body.setSize(72, 9);
 		this.body.setOffset(31, 183);
-		this.setOrigin(0.3, 1)
+		
+		this.setInteractive();
+		this.on('pointerout', () => 
+        { 
+            this.setTint("0xFFFFFF");
+        });
+		
+		this.on('pointerover', () => 
+        {
+			if (scene.current_tool == 2)
+			{
+				this.setTint("0xD7D7D7");
+			}
+        });
 		
 		this.depth = this.y + this.displayHeight / 2;
 	}
@@ -21,5 +34,10 @@ class Tree extends Phaser.Physics.Arcade.Sprite
 	preUpdate(time, delta)
 	{
 		super.preUpdate(time, delta)
+		
+		if (this.scene.current_tool != 2)
+		{
+			this.setTint("0xFFFFFF");
+		}
 	}
 }

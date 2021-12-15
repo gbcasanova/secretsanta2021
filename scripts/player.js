@@ -50,7 +50,6 @@ class Player extends Phaser.Physics.Arcade.Sprite
 		];
 		this.body.setSize(36, 22);
 		this.body.setOffset(14, 58);
-		this.setOrigin(0.3, 1)
 		
 		// Movement.
 		this.moving = false;
@@ -151,7 +150,6 @@ class Player extends Phaser.Physics.Arcade.Sprite
 		this.movement();
 		this.animation();
 		
-		// I don't know what i'm doing anymore and at this point it's too late to care.
-		this.depth = this.y + this.displayHeight*1.2;
+		this.depth = this.y + this.displayHeight/2;
 	}
 }
