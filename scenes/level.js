@@ -32,11 +32,12 @@ class Level extends Phaser.Scene
 			.setOrigin(0, 0)
 			.setDepth(2000);
 		
-		// Wheel selection.
+		
 		this.current_tool = 0; // 0 - Pickaxe | 1 - Shovel | 2 - Axe | 3 - Bucket
 		this.cursor = new Cursor(this);
 		this.cursor.setFrame(this.current_tool)
 		
+		// Wheel selection.
 		this.input.on('wheel', function(pointer, currentlyOver, dx, dy, dz, event)
 		{
 			this.current_tool += Math.sign(dy);
@@ -48,7 +49,6 @@ class Level extends Phaser.Scene
 				this.current_tool = 3;
 			
 			this.cursor.setFrame(this.current_tool)
-			console.log(this.current_tool)
 		}, this);
 		
 		// Items showcase sprite.
@@ -61,7 +61,7 @@ class Level extends Phaser.Scene
 	update_gui()
 	{
 		// Change outline position based on tool.
-        this.outline.x = 128 + 64*this.current_tool
+        this.outline.setX(128 + 64*this.current_tool)
 	}
 
 	import_objects(layer)
@@ -101,6 +101,6 @@ class Level extends Phaser.Scene
 
     update(time, delta)
     {
-		//this.update_gui();
+		this.update_gui();
     }
 }
