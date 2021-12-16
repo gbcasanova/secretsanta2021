@@ -52,7 +52,5 @@ class Tree extends Phaser.Physics.Arcade.Sprite
 		{
 			this.setTint("0xFFFFFF");
 		}
-		
-		console.log(this.collectable_worthy)
 	}
 }
