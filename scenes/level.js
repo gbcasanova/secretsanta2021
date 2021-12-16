@@ -32,7 +32,6 @@ class Level extends Phaser.Scene
 			.setOrigin(0, 0)
 			.setDepth(2000);
 		
-		
 		this.current_tool = 0; // 0 - Pickaxe | 1 - Shovel | 2 - Axe | 3 - Bucket
 		this.cursor = new Cursor(this);
 		this.cursor.setFrame(this.current_tool)
@@ -52,10 +51,37 @@ class Level extends Phaser.Scene
 		}, this);
 		
 		// Items showcase sprite.
-		this.items_showcase = this.add.sprite(10, 10, "items_showcase")
+		this.items_showcase = this.add.sprite(10, 43, "items_showcase")
 			.setScrollFactor(0)
 			.setOrigin(0, 0)
 			.setDepth(2000);
+			
+		// Create text.
+		this.add.text(4, 4, "Collect all the resources before the timer runs out!", {
+			fontFamily: "PinkChicken-Regular",
+			stroke: "0x000000",
+			strokeThickness: 7
+		})
+			.setDepth(2000)
+			.setFontSize(25)
+			.setScrollFactor(0);
+			
+		// Create side text.
+		this.add.text(45, 37, 
+			this.numberof.rocks + "\n" + 
+			this.numberof.trees + "\n" +
+			this.numberof.diamonds + "\n" + 
+			this.numberof.water + "\n" + 
+			this.numberof.lava + "\n",
+			{
+				fontFamily: "PinkChicken-Regular",
+				stroke: "0x000000",
+				strokeThickness: 7
+			}
+		)
+			.setDepth(2000)
+			.setFontSize(25)
+			.setScrollFactor(0);
 	}
 	
 	update_gui()
@@ -81,7 +107,6 @@ class Level extends Phaser.Scene
     create()
     {
 		this.cameras.main.fadeIn(1000);
-		this.create_gui(); // Create GUI interface.
 		this.player = new Player(this, 120, 120);
 		
 		//this.input.on('pointerdown', function (pointer) {
@@ -92,13 +117,27 @@ class Level extends Phaser.Scene
 		let map = this.make.tilemap({key: "tilemap"});
 		let tileset = map.addTilesetImage("tileset", "tileset");
 		map.createLayer("ground", tileset);
-		map.createLayer("deco", tileset);
-		let objectlayer = map.getObjectLayer("objects")["objects"];
-		this.import_objects(objectlayer);
+		//map.createLayer("deco", tileset);
+		//let objectlayer = map.getObjectLayer("objects")["objects"];
+		//this.import_objects(objectlayer);
 		
 		this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
 		
-		new Tree(this, 0, 0, 0);
+		// Generate objects.
+		this.numberof = {}
+		
+		this.numberof.rocks = 0;
+		
+		this.numberof.trees = Phaser.Math.Between(5, 30);
+		for (let i = 0; i < this.numberof.trees; i++) {
+			new Tree(this, Phaser.Math.Between(60, 1180), Phaser.Math.Between(100, 1180), Phaser.Math.Between(0, 1));
+		}
+		
+		this.numberof.diamonds = 0;
+		this.numberof.water = 0;
+		this.numberof.lava = 0;
+		
+		this.create_gui(); // Create GUI interface.
     }
 
     update(time, delta)
