@@ -27,7 +27,17 @@ class Tree extends Phaser.Physics.Arcade.Sprite
 			this.pointer_in = true;
         });
 		
+		this.on('pointerdown', function (event) // Collect tree.
+        {
+            if (this.collectable_worthy)
+			{
+				this.setFrame(2);
+				this.collected = true;
+			}
+        }, this);
+		
 		this.depth = this.y + this.displayHeight / 2;
+		this.collected = false;
 		this.collectable_worthy = false;
 	}
 	
@@ -36,21 +46,24 @@ class Tree extends Phaser.Physics.Arcade.Sprite
 		super.preUpdate(time, delta);
 		
 		this.collectable_worthy = false;
-		if (this.pointer_in)
+		if (!this.collected)
 		{
-			if (this.scene.current_tool == 2)
+			if (this.pointer_in)
 			{
-				this.setTint("0xD7D7D7");
-				this.collectable_worthy = true;
+				if (this.scene.current_tool == 2)
+				{
+					this.setTint("0xD7D7D7");
+					this.collectable_worthy = true;
+				}
+				else
+				{
+					this.setTint("0xFFFFFF");
+				}
 			}
 			else
 			{
 				this.setTint("0xFFFFFF");
 			}
-		}
-		else
-		{
-			this.setTint("0xFFFFFF");
 		}
 	}
 }
