@@ -11,11 +11,12 @@ class Tree extends Phaser.Physics.Arcade.Sprite
 		scene.physics.add.existing(this);
 		scene.physics.add.collider(this, scene.player)
 		this.setImmovable(true)
-		this.body.setSize(72, 9);
-		this.body.setOffset(31, 183);
+		this.setSize(72, 9);
+		this.setOffset(31, 183);
 		
 		// Pointer.
 		this.setInteractive();
+		
 		this.pointer_in = false;
 		this.on('pointerout', () => 
         { 
@@ -33,12 +34,13 @@ class Tree extends Phaser.Physics.Arcade.Sprite
 			{
 				this.setFrame(2);
 				this.collected = true;
+				this.disableInteractive();
 			}
         }, this);
 		
-		this.depth = this.y + this.displayHeight / 2;
 		this.collected = false;
 		this.collectable_worthy = false;
+		this.depth = this.y + this.displayHeight / 2;
 	}
 	
 	preUpdate(time, delta)
