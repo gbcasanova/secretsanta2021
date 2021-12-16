@@ -66,7 +66,7 @@ class Level extends Phaser.Scene
 
 	import_objects(layer)
 	{
-		// Import objects from layer.
+		/* Import objects from layer.
         layer.forEach(object => 
 		{
 			switch(object.type)
@@ -75,7 +75,7 @@ class Level extends Phaser.Scene
 					new Tree(this, object.x, object.y, 0);
 					break;
 			}
-		})
+		})*/
 	}
 	
     create()
@@ -97,6 +97,8 @@ class Level extends Phaser.Scene
 		this.import_objects(objectlayer);
 		
 		this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
+		
+		new Tree(this, 0, 0, 0);
     }
 
     update(time, delta)
