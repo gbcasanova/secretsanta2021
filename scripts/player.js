@@ -2,7 +2,7 @@ class Player extends Phaser.Physics.Arcade.Sprite
 {
 	constructor(scene, x, y)
 	{
-		super(scene, x, y, "fallguy_steve");
+		super(scene, x, y, "fallguy");
 		
 		// Add to updatelist.
         scene.add.existing(this);
@@ -15,6 +15,7 @@ class Player extends Phaser.Physics.Arcade.Sprite
 			left:  scene.input.keyboard.addKey('A'),
 			down:  scene.input.keyboard.addKey('S'),
 			right: scene.input.keyboard.addKey('D'),
+			space: scene.input.keyboard.addKey('SPACE'),
 		};
 		
 		// Animations.
@@ -151,5 +152,10 @@ class Player extends Phaser.Physics.Arcade.Sprite
 		this.animation();
 		
 		this.depth = this.y + this.displayHeight/2;
+		
+		if (this.keys.space.isDown)
+		{
+			console.log("X: " + this.x + " Y: " + this.y)
+		}
 	}
 }
