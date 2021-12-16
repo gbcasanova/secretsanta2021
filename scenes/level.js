@@ -7,12 +7,15 @@ class Level extends Phaser.Scene
 
     preload()
     {
-        this.load.spritesheet("fallguy_steve", "sprites/fallguy_steve.png", {frameWidth: 64, frameHeight: 80});
-		this.load.spritesheet("trees", "sprites/trees.png", {frameWidth: 128, frameHeight: 192});
+		// Level sprites.
+        this.load.spritesheet("fallguy", "sprites/fallguy.png", {frameWidth: 64, frameHeight: 80});
+		this.load.spritesheet("trees",   "sprites/trees.png",   {frameWidth: 128,frameHeight: 192});
+		this.load.spritesheet("itemDrop","sprites/itemDrop.png",{frameWidth: 64, frameHeight: 64});
 		
 		this.load.image("tileset", "sprites/tileset.png");
 		this.load.tilemapTiledJSON("tilemap", "tilemaps/test.json");
 		
+		// Gui sprites.
 		this.load.spritesheet("cursors", "sprites/gui/cursors.png", {frameWidth: 34, frameHeight: 34})
 		this.load.image("tools_selector", "sprites/gui/tools_selector.png")
 		this.load.image("outline", "sprites/gui/outline.png")
@@ -67,13 +70,7 @@ class Level extends Phaser.Scene
 			.setScrollFactor(0);
 			
 		// Create side text.
-		this.add.text(45, 37, 
-			this.numberof.rocks + "\n" + 
-			this.numberof.trees + "\n" +
-			this.numberof.diamonds + "\n" + 
-			this.numberof.water + "\n" + 
-			this.numberof.lava + "\n",
-			{
+		this.item_text = this.add.text(45, 37, " ", {
 				fontFamily: "PinkChicken-Regular",
 				stroke: "0x000000",
 				strokeThickness: 7
@@ -88,6 +85,14 @@ class Level extends Phaser.Scene
 	{
 		// Change outline position based on tool.
         this.outline.setX(128 + 64*this.current_tool)
+		
+		this.item_text.setText(
+			this.numberof.rocks + "\n" + 
+			this.numberof.trees + "\n" +
+			this.numberof.diamonds + "\n" + 
+			this.numberof.water + "\n" + 
+			this.numberof.lava + "\n"
+		);
 	}
 
 	import_objects(layer)
@@ -109,10 +114,6 @@ class Level extends Phaser.Scene
 		this.cameras.main.fadeIn(1000);
 		this.player = new Player(this, 120, 120);
 		
-		//this.input.on('pointerdown', function (pointer) {
-			//this.input.mouse.requestPointerLock();
-		//}, this);
-		
 		// Tilemap.
 		let map = this.make.tilemap({key: "tilemap"});
 		let tileset = map.addTilesetImage("tileset", "tileset");
@@ -121,17 +122,18 @@ class Level extends Phaser.Scene
 		//let objectlayer = map.getObjectLayer("objects")["objects"];
 		//this.import_objects(objectlayer);
 		this.physics.world.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
-		
 		this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
 		
 		// Generate objects.
-		this.numberof = {}
+		let random = Phaser.Math.Between;
 		
+		this.numberof = {}
 		this.numberof.rocks = 0;
 		
-		this.numberof.trees = Phaser.Math.Between(5, 30);
+		this.numberof.trees = random(5, 30);
 		for (let i = 0; i < this.numberof.trees; i++) {
-			new Tree(this, Phaser.Math.Between(60, 1180), Phaser.Math.Between(100, 1180), Phaser.Math.Between(0, 1));
+					       // X least-most.  //Y least-most.    // Tree type.
+			new Tree(this, random(60, 795), random(100, 728), random(0, 1));
 		}
 		
 		this.numberof.diamonds = 0;

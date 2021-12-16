@@ -35,6 +35,18 @@ class Tree extends Phaser.Physics.Arcade.Sprite
 				this.setFrame(2);
 				this.collected = true;
 				this.disableInteractive();
+				
+				let woodItem = new ItemDrop(scene, this.x, this.y, 1)
+				
+				let tween = scene.tweens.add({
+					targets: woodItem,
+					alpha: 1,
+					y: {from: this.y, to: this.y + 80},
+					ease: 'Back.easeInOut',       // 'Cubic', 'Elastic', 'Bounce', 'Back'
+					duration: 1000,
+					repeat: 0,            // -1: infinity
+					yoyo: false
+				});
 			}
         }, this);
 		
