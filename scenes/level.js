@@ -117,9 +117,10 @@ class Level extends Phaser.Scene
 		let map = this.make.tilemap({key: "tilemap"});
 		let tileset = map.addTilesetImage("tileset", "tileset");
 		map.createLayer("ground", tileset);
-		//map.createLayer("deco", tileset);
+		map.createLayer("ground2", tileset);
 		//let objectlayer = map.getObjectLayer("objects")["objects"];
 		//this.import_objects(objectlayer);
+		this.physics.world.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
 		
 		this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
 		

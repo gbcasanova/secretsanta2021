@@ -7,7 +7,7 @@ class Player extends Phaser.Physics.Arcade.Sprite
 		// Add to updatelist.
         scene.add.existing(this);
         scene.physics.add.existing(this);
-		//this.setCollideWorldBounds(true);
+		this.setCollideWorldBounds(true);
 		
 		// Keyboard.
 		this.keys = {
