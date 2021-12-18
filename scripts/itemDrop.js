@@ -16,9 +16,13 @@ class ItemDrop extends Phaser.Physics.Arcade.Sprite
 			switch(type)
 			{
 				case 0:
+					scene.numberof.rocks -= 1;
+					scene.sound.play("sfx_item_stone");
+					
 					break;
 				case 1:
 					scene.numberof.trees -= 1;
+					scene.sound.play("sfx_item_wood");
 					break;
 			}
 			

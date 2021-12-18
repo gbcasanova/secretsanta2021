@@ -1,18 +1,14 @@
-class Tree extends Phaser.Physics.Arcade.Sprite
+class Rock extends Phaser.Physics.Arcade.Sprite
 {
 	constructor(scene, x, y, type)
 	{
-		super(scene, x, y, "trees", type);
+		super(scene, x, y, "breakTiles", 0);
 		
 		// Add to updatelist.
         scene.add.existing(this);
 		
 		// Physics.
 		scene.physics.add.existing(this);
-		scene.physics.add.collider(this, scene.player)
-		this.setImmovable(true)
-		this.setSize(41, 10);
-		this.setOffset(47, 182);
 		
 		// Pointer.
 		this.setInteractive();
@@ -32,20 +28,20 @@ class Tree extends Phaser.Physics.Arcade.Sprite
         {
             if (this.collectable_worthy)
 			{
-				this.setFrame(2);
 				this.collected = true;
+				this.setTint("0xADADAD");
 				this.disableInteractive();
-				scene.sound.play("sfx_axe");
+				scene.sound.play("sfx_pickaxe");
 				
-				let woodItem = new ItemDrop(scene, this.x, this.y, 1)
+				let woodItem = new ItemDrop(scene, this.x, this.y, 0)
 				
 				let tween = scene.tweens.add({
 					targets: woodItem,
 					alpha: 1,
 					y: {from: this.y, to: this.y + 80},
-					ease: 'Back.easeInOut',      
+					ease: 'Back.easeInOut',  
 					duration: 1000,
-					repeat: 0,        
+					repeat: 0,         
 					yoyo: false
 				});
 			}
@@ -53,7 +49,6 @@ class Tree extends Phaser.Physics.Arcade.Sprite
 		
 		this.collected = false;
 		this.collectable_worthy = false;
-		this.depth = this.y + this.displayHeight / 2;
 	}
 	
 	preUpdate(time, delta)
@@ -65,7 +60,7 @@ class Tree extends Phaser.Physics.Arcade.Sprite
 		{
 			if (this.pointer_in)
 			{
-				if (this.scene.current_tool == 2)
+				if (this.scene.current_tool == 0)
 				{
 					this.setTint("0xD7D7D7");
 					this.collectable_worthy = true;
