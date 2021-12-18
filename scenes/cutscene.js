@@ -11,8 +11,14 @@ class Cutscene extends Phaser.Scene
 		this.load.spritesheet("cursors", "sprites/gui/cursors.png", {frameWidth: 34, frameHeight: 34})
 		
 		// Load cutscene audio.
-		this.load.audio("cutscene0_0", "sounds/cutscenes/cutscene0_0.mp3")
-		this.load.audio("cutscene0_1", "sounds/cutscenes/cutscene0_1.mp3")
+		switch(level_game)
+		{
+			case 0:
+				this.load.audio("cutscene0", "sounds/cutscenes/cutscene0_0.mp3")
+				this.load.audio("cutscene1", "sounds/cutscenes/cutscene0_1.mp3")
+				break;
+		}
+		
     }
 
     create()
@@ -27,13 +33,8 @@ class Cutscene extends Phaser.Scene
 		this.cursor = new Cursor(this);
 		
 		// Select the specific sound.
-		switch(level_game)
-		{
-			case 0:
-				this.cutsceneaudio_0 =  this.sound.add("cutscene0_0");
-				this.cutsceneaudio_1 =  this.sound.add("cutscene0_1");
-				break;
-		}
+		this.cutsceneaudio_0 = this.sound.add("cutscene0");
+		this.cutsceneaudio_1 = this.sound.add("cutscene1");
 		
 		this.cutsceneaudio_0.play(); // Play first audio.
 		this.cutsceneaudio_0.on('complete', function(){
