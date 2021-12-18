@@ -15,7 +15,9 @@ class Rocket extends Phaser.Physics.Arcade.Sprite
 			
 			if (nof.rocks + nof.trees + nof.diamonds + nof.water + nof.lava == 0)
 			{
+				scene.player.walking_sound.setMute(true);
 				scene.player.destroy();
+				scene.music.destroy();
 			
 				let tween = scene.tweens.add({
 					targets: this,

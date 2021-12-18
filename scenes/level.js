@@ -121,8 +121,8 @@ class CraftLevel extends Phaser.Scene
 		this.cameras.main.fadeIn(1000);
 		this.player = new Player(this, 120, 120);
 		
-		let music = this.sound.add("craftsong", {loop: true});
-		music.play()
+		this.music = this.sound.add("craftsong", {loop: true});
+		this.music.play()
 		
 		// Tilemap.
 		let map = this.make.tilemap({key: "tilemap"});
@@ -164,6 +164,11 @@ class CraftLevel extends Phaser.Scene
 		
 		this.create_gui(); // Create GUI interface.
 		let rocket = new Rocket(this, 661, 1539)
+		
+		// Fade out. 
+		this.cameras.main.once('camerafadeoutcomplete', function (camera) {
+            this.scene.start("TravelAnim");
+        }, this);
     }
 
     update(time, delta)

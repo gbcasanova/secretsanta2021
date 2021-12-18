@@ -63,6 +63,12 @@ class Player extends Phaser.Physics.Arcade.Sprite
 		let camera = scene.cameras.main;
 		camera.startFollow(this, false, 0.1, 0.1);
 		
+		// Walking sound:
+        this.walking_sound = scene.sound.add("sfx_walk");
+        this.walking_sound.setLoop(true)
+        this.walking_sound.setMute(true)
+        this.walking_sound.play()
+		
 	}
 	
 	movement()
@@ -130,6 +136,8 @@ class Player extends Phaser.Physics.Arcade.Sprite
 			{
 				this.play("run_back", true);
 			}
+			
+			this.walking_sound.setMute(false)
 		}
 		else // Play Idle Animation.
 		{
@@ -141,6 +149,8 @@ class Player extends Phaser.Physics.Arcade.Sprite
 			{
 				this.play("idle_back", true);
 			}
+			
+			this.walking_sound.setMute(true)
 		}
 	}
 	
