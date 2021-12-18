@@ -8,7 +8,7 @@ class CraftLevel extends Phaser.Scene
     preload()
     {
 		// Level sprites.
-        this.load.spritesheet("fallguy",   "sprites/fallguy.png",   {frameWidth: 64, frameHeight: 80});
+        this.load.spritesheet("fallguy",   "sprites/fallguy.png",   {frameWidth: 66, frameHeight: 82});
 		this.load.spritesheet("trees",     "sprites/trees.png",     {frameWidth: 128,frameHeight: 192});
 		this.load.spritesheet("itemDrop",  "sprites/itemDrop.png",  {frameWidth: 64, frameHeight: 64});
 		this.load.spritesheet("breakTiles","sprites/breakTiles.png",{frameWidth: 64, frameHeight: 64});

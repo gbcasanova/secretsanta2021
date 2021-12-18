@@ -27,7 +27,7 @@ var config = {
         }
 	},
 	
-    scene: [SceneSelector, Menu, CraftLevel, Cutscene, TravelAnim]
+    scene: [SceneSelector, Menu, CraftLevel, Cutscene, TravelAnim, PlatformLevel]
 	//scene: [CraftLevel, Menu, Cutscene, TravelAnim]
 };
 

@@ -68,7 +68,10 @@ class TravelAnim extends Phaser.Scene
 			this.cameras.main.fadeOut(2000, "255", "255", "255");
 		}, this)
 		
-		
+		// Fade out. 
+		this.cameras.main.once('camerafadeoutcomplete', function (camera) {
+            this.scene.start("PlatformLevel");
+        }, this);		
     }
 
     update(time, delta)
