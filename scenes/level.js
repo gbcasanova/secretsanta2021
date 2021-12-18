@@ -13,6 +13,7 @@ class CraftLevel extends Phaser.Scene
 		this.load.spritesheet("itemDrop",  "sprites/itemDrop.png",  {frameWidth: 64, frameHeight: 64});
 		this.load.spritesheet("breakTiles","sprites/breakTiles.png",{frameWidth: 64, frameHeight: 64});
 		
+		this.load.image("rocket", "sprites/rocket.png");
 		this.load.image("tileset", "sprites/tileset.png");
 		this.load.tilemapTiledJSON("tilemap", "tilemaps/test.json");
 		
@@ -34,6 +35,9 @@ class CraftLevel extends Phaser.Scene
 		this.load.audio("sfx_item_stone",  "sounds/sfx_item_stone.ogg");
 		this.load.audio("sfx_item_water",  "sounds/sfx_item_water.ogg");
 		this.load.audio("sfx_item_wood",   "sounds/sfx_item_wood.ogg");
+		
+		this.load.audio("sfx_rocket", "sounds/sfx_rocket.mp3");
+		this.load.audio("craftsong", "sounds/craftsong.mp3")
     }
 	
 	create_gui()
@@ -117,6 +121,9 @@ class CraftLevel extends Phaser.Scene
 		this.cameras.main.fadeIn(1000);
 		this.player = new Player(this, 120, 120);
 		
+		let music = this.sound.add("craftsong", {loop: true});
+		music.play()
+		
 		// Tilemap.
 		let map = this.make.tilemap({key: "tilemap"});
 		let tileset = map.addTilesetImage("tileset", "tileset");
@@ -156,6 +163,7 @@ class CraftLevel extends Phaser.Scene
 		}
 		
 		this.create_gui(); // Create GUI interface.
+		let rocket = new Rocket(this, 661, 1539)
     }
 
     update(time, delta)
