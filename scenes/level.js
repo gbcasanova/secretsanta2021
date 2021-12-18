@@ -8,18 +8,31 @@ class Level extends Phaser.Scene
     preload()
     {
 		// Level sprites.
-        this.load.spritesheet("fallguy", "sprites/fallguy.png", {frameWidth: 64, frameHeight: 80});
-		this.load.spritesheet("trees",   "sprites/trees.png",   {frameWidth: 128,frameHeight: 192});
-		this.load.spritesheet("itemDrop","sprites/itemDrop.png",{frameWidth: 64, frameHeight: 64});
+        this.load.spritesheet("fallguy",   "sprites/fallguy.png",   {frameWidth: 64, frameHeight: 80});
+		this.load.spritesheet("trees",     "sprites/trees.png",     {frameWidth: 128,frameHeight: 192});
+		this.load.spritesheet("itemDrop",  "sprites/itemDrop.png",  {frameWidth: 64, frameHeight: 64});
+		this.load.spritesheet("breakTiles","sprites/breakTiles.png",{frameWidth: 64, frameHeight: 64});
 		
 		this.load.image("tileset", "sprites/tileset.png");
 		this.load.tilemapTiledJSON("tilemap", "tilemaps/test.json");
 		
 		// Gui sprites.
-		this.load.spritesheet("cursors", "sprites/gui/cursors.png", {frameWidth: 34, frameHeight: 34})
-		this.load.image("tools_selector", "sprites/gui/tools_selector.png")
-		this.load.image("outline", "sprites/gui/outline.png")
-		this.load.image("items_showcase", "sprites/gui/items_showcase.png")
+		this.load.spritesheet("cursors", "sprites/gui/cursors.png", {frameWidth: 34, frameHeight: 34});
+		this.load.image("tools_selector","sprites/gui/tools_selector.png");
+		this.load.image("outline",       "sprites/gui/outline.png");
+		this.load.image("items_showcase","sprites/gui/items_showcase.png");
+		
+		// Load music & sound effects.
+		this.load.audio("sfx_axe",    "sounds/sfx_axe.ogg");
+		this.load.audio("sfx_pickaxe","sounds/sfx_pickaxe.ogg");
+		this.load.audio("sfx_shovel", "sounds/sfx_pickaxe.ogg");
+		this.load.audio("sfx_walk",   "sounds/sfx_walk.ogg");
+		
+		this.load.audio("sfx_item_diamond","sounds/sfx_item_diamond.ogg");
+		this.load.audio("sfx_item_lava",   "sounds/sfx_item_lava.ogg");
+		this.load.audio("sfx_item_stone",  "sounds/sfx_item_stone.ogg");
+		this.load.audio("sfx_item_water",  "sounds/sfx_item_water.ogg");
+		this.load.audio("sfx_item_wood",   "sounds/sfx_item_wood.ogg");
     }
 	
 	create_gui()
@@ -86,6 +99,7 @@ class Level extends Phaser.Scene
 		// Change outline position based on tool.
         this.outline.setX(128 + 64*this.current_tool)
 		
+		// Update item text.
 		this.item_text.setText(
 			this.numberof.rocks + "\n" + 
 			this.numberof.trees + "\n" +
@@ -130,10 +144,15 @@ class Level extends Phaser.Scene
 		this.numberof = {}
 		this.numberof.rocks = 0;
 		
-		this.numberof.trees = random(5, 30);
+		this.numberof.rocks = random(2, 10); // ROCKS.
+		for (let i = 0; i < this.numberof.rocks; i++) {
+			let rock = new Rock(this, random(821, 1259), random(-2, 651));
+					                  // X least-most.   //Y least-most. 
+		}
+		
+		this.numberof.trees = random(5, 30); // TREES.
 		for (let i = 0; i < this.numberof.trees; i++) {
-					       // X least-most.  //Y least-most.    // Tree type.
-			new Tree(this, random(60, 795), random(100, 728), random(0, 1));
+			let tree = new Tree(this, random(60, 795), random(100, 728), random(0, 1));
 		}
 		
 		this.numberof.diamonds = 0;
