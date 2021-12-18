@@ -1,8 +1,8 @@
-class Level extends Phaser.Scene
+class CraftLevel extends Phaser.Scene
 {
     constructor()
     {
-        super("Level");
+        super("CraftLevel");
     }
 
     preload()
@@ -50,6 +50,8 @@ class Level extends Phaser.Scene
 			.setDepth(2000);
 		
 		this.current_tool = 0; // 0 - Pickaxe | 1 - Shovel | 2 - Axe | 3 - Bucket
+		
+		this.sys.canvas.style.cursor = 'none';
 		this.cursor = new Cursor(this);
 		this.cursor.setFrame(this.current_tool)
 		
@@ -74,7 +76,7 @@ class Level extends Phaser.Scene
 			.setDepth(2000);
 			
 		// Create text.
-		this.add.text(4, 4, "Collect all the resources before the timer runs out!", {
+		this.add.text(4, 4, "Collect all the resources and get in the ROCKET!!", {
 			fontFamily: "PinkChicken-Regular",
 			stroke: "0x000000",
 			strokeThickness: 7

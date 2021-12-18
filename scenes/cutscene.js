@@ -47,7 +47,7 @@ class Cutscene extends Phaser.Scene
 		
 		// Switch scenes.
 		this.cameras.main.once('camerafadeoutcomplete', function (camera) {
-			this.scene.start("Level")
+			this.scene.start("CraftLevel")
 		}, this)
 		
     }

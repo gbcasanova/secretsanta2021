@@ -27,7 +27,7 @@ var config = {
         }
 	},
 	
-    scene: [SceneSelector, Menu, Level, Cutscene]
+    scene: [SceneSelector, Menu, CraftLevel, Cutscene]
 };
 
 var level_game = 0;
