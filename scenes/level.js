@@ -24,6 +24,7 @@ class Level extends Phaser.Scene
 		
 		// Load music & sound effects.
 		this.load.audio("sfx_axe",    "sounds/sfx_axe.ogg");
+		this.load.audio("sfx_bucket", "sounds/sfx_bucket.ogg");
 		this.load.audio("sfx_pickaxe","sounds/sfx_pickaxe.ogg");
 		this.load.audio("sfx_shovel", "sounds/sfx_shovel.ogg");
 		this.load.audio("sfx_walk",   "sounds/sfx_walk.ogg");
@@ -156,10 +157,14 @@ class Level extends Phaser.Scene
 		
 		this.numberof.diamonds = random(8, 15); // DIAMONDS.
 		for (let i = 0; i < this.numberof.diamonds; i++) {
-			let sand = new Sand(this, random(35, 1199), random(772, 1198));
+			let sand = new Sand(this, random(35, 1199), random(772, 1100));
 		}
 		
-		this.numberof.water = 0;
+		this.numberof.water = random(5, 15); // WATER.
+		for (let i = 0; i < this.numberof.water; i++) {
+			let water = new Water(this, random(66, 1199), random(55, 1100));
+		}
+		
 		this.numberof.lava = 0;
 		
 		this.create_gui(); // Create GUI interface.

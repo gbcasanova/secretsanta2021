@@ -28,6 +28,10 @@ class ItemDrop extends Phaser.Physics.Arcade.Sprite
 					scene.numberof.diamonds -= 1;
 					scene.sound.play("sfx_item_diamond");
 					break;
+				case 3:
+					scene.numberof.water -= 1;
+					scene.sound.play("sfx_item_water");
+					break;
 			}
 			
 			this.destroy();
