@@ -3,11 +3,13 @@ class PlatformPlayer extends Phaser.Physics.Arcade.Sprite
 	constructor(scene, x, y)
 	{
 		super(scene, x, y, "fallguy", 0);
+		this.inactive = false;
 		
 		// Add to updatelist.
         scene.add.existing(this);
 		scene.physics.add.existing(this);
 		this.setCollideWorldBounds(true);
+		this.body.setSize(10, 80)
 		
 		let playerAnimations = [
             this.anims.create ({
@@ -40,25 +42,32 @@ class PlatformPlayer extends Phaser.Physics.Arcade.Sprite
 	{
 		super.preUpdate(time, delta);
 		//console.log(this.scene)
-		
-		// Jump.
-		if (this.body.onFloor())
+		if (!this.inactive)
 		{
-			this.setVelocityX(300)
-			this.scene.thornpole.body.setVelocityX(300)
-			
-			if (this.space_key.isDown)
+			// Jump.
+			if (this.body.onFloor())
 			{
-				this.setVelocityY(-330);
-				this.scene.sound.play("sfx_jump");
+				this.setVelocityX(300)
+				this.scene.thornpole.body.setVelocityX(300)
+				
+				if (this.space_key.isDown)
+				{
+					this.setVelocityY(-330);
+					this.scene.sound.play("sfx_jump");
+				}
+			}
+			
+			// Jumping animation.
+			if (this.body.velocity.y < 0) {
+				this.play("idle", true)
+			} else if (this.body.velocity.y > 0) {
+				this.play("walking", true)
 			}
 		}
-		
-		// Jumping animation.
-		if (this.body.velocity.y < 0) {
-			this.play("idle", true)
-		} else if (this.body.velocity.y > 0) {
-			this.play("walking", true)
+		else
+		{
+			this.setVelocityX(0);
+			this.play("idle", true);
 		}
 	}
 }

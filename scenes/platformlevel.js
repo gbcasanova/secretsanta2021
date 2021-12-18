@@ -10,6 +10,7 @@ class PlatformLevel extends Phaser.Scene
 		this.cache.tilemap.remove("tilemap")
 		
 		this.load.spritesheet("fallguy", "sprites/fallguy.png", {frameWidth: 66, frameHeight: 82})
+		this.load.spritesheet("objectsprites", "sprites/objectsprites.png", {frameWidth: 66, frameHeight: 66})
 		this.load.image("tileset",  "sprites/tileset.png");
 		this.load.image("thornpole","sprites/thornpole.png")
 		
@@ -57,15 +58,17 @@ class PlatformLevel extends Phaser.Scene
 		
 		let map = this.make.tilemap({key: "tilemap"}); // Tilemap.
 		let tileset = map.addTilesetImage("tileset", "tileset");
-		let solid_layer = map.createLayer("solid", tileset);
+		let solid_layer  = map.createLayer("solid", tileset);
+		let object_layer = map.getObjectLayer("objects")["objects"] // Objects.
 		solid_layer.setCollisionByExclusion([-1])
+		this.importObjects(object_layer)
 		
 		this.physics.add.collider(this.player, solid_layer); // Physics.
 		this.physics.world.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
 		this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
 		
 		// Thornpole.
-		this.thornpole = this.add.image(-90, 0, "thornpole").setOrigin(0,0).setDepth(2000)
+		this.thornpole = this.add.image(-100, 0, "thornpole").setOrigin(0,0).setDepth(2000)
 		this.physics.world.enable(this.thornpole);
 		this.physics.add.overlap(this.player, this.thornpole, function(){
 			this.resetLevel();
@@ -96,8 +99,54 @@ class PlatformLevel extends Phaser.Scene
 			// Fade out. 
 			this.cameras.main.once('camerafadeoutcomplete', function (camera) {
 				this.scene.restart();
-			}, this);		
+			}, this);	
+			this.player.inactive = true;
 		}
+	}
+	
+	nextLevel()
+	{
+		if (!this.levelover)
+		{
+			this.levelover = true
+			this.sound.stopAll();
+			this.cameras.main.fadeOut(1000);
+			
+			// Fade out. 
+			this.cameras.main.once('camerafadeoutcomplete', function (camera) {
+				level_game += 1;
+				this.scene.start("Cutscene");
+			}, this);	
+			this.player.inactive = true;
+			this.thornpole.body.setVelocityX(0)
+		}
+	}
+	
+	importObjects(layer)
+	{
+		// Import objects from layer.
+        layer.forEach(object => 
+        {
+            switch(object.type)
+            {
+                case "spike":
+                    let spike = this.add.sprite(object.x, object.y, "objectsprites", 0).setOrigin(0, 1)
+					this.physics.world.enable(spike);
+					this.physics.add.overlap(this.player, spike, function(){
+						this.resetLevel();
+					}, null, this)
+                    break;
+					
+				case "end":
+                    let end = this.add.sprite(object.x, object.y, "objectsprites", 0)
+						.setOrigin(0, 1).setVisible(false)
+					this.physics.world.enable(end);
+					this.physics.add.overlap(this.player, end, function(){
+						this.nextLevel();
+					}, null, this)
+                    break;
+            }
+        })
 	}
 
     update(time, delta)
