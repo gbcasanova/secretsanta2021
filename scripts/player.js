@@ -54,8 +54,8 @@ class Player extends Phaser.Physics.Arcade.Sprite
 		
 		// Movement.
 		this.moving = false;
-		this.accel  = 450;
-		this.drag   = 150;
+		this.accel  = 900;
+		this.drag   = 900;
 		this.maxSpd = 200;
 		this.front = true;
 		
