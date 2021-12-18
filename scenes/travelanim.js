@@ -15,6 +15,7 @@ class TravelAnim extends Phaser.Scene
 
     create()
     {
+		this.sys.canvas.style.cursor = 'none';
 		this.cameras.main.fadeIn(1000);
 		
 		// LEVEL NAMES.

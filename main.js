@@ -20,7 +20,8 @@ var config = {
         default: 'arcade',
 		arcade:
         {
-            debug: false,
+			debug: false,
+            //debug: true,
             debugShowBody: true,
             debugShowStaticBody: true,
             fps: 60
