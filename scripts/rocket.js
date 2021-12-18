@@ -13,8 +13,8 @@ class Rocket extends Phaser.Physics.Arcade.Sprite
 		scene.physics.add.overlap(scene.player, this, function(){
 			let nof = scene.numberof;
 			
-			//if (nof.rocks + nof.trees + nof.diamonds + nof.water + nof.lava == 0)
-			//{
+			if (nof.rocks + nof.trees + nof.diamonds + nof.water + nof.lava == 0)
+			{
 				scene.player.destroy();
 			
 				let tween = scene.tweens.add({
@@ -31,7 +31,7 @@ class Rocket extends Phaser.Physics.Arcade.Sprite
 				});
 				
 				scene.sound.play("sfx_rocket")
-			//}
+			}
 		}, null, this);
 		
 		this.depth = this.y + this.displayHeight*2;
