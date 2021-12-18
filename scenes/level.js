@@ -141,7 +141,6 @@ class Level extends Phaser.Scene
 		
 		// Generate objects.
 		let random = Phaser.Math.Between;
-		
 		this.numberof = {}
 		
 		this.numberof.rocks = random(2, 10); // ROCKS.
@@ -160,12 +159,15 @@ class Level extends Phaser.Scene
 			let sand = new Sand(this, random(35, 1199), random(772, 1100));
 		}
 		
-		this.numberof.water = random(5, 15); // WATER.
+		this.numberof.water = random(5, 10); // WATER.
 		for (let i = 0; i < this.numberof.water; i++) {
 			let water = new Water(this, random(66, 1199), random(55, 1100));
 		}
 		
-		this.numberof.lava = 0;
+		this.numberof.lava = random(5, 10); // LAVA.
+		for (let i = 0; i < this.numberof.lava; i++) {
+			let lava = new Lava(this, random(66, 1199), random(55, 1100));
+		}
 		
 		this.create_gui(); // Create GUI interface.
     }

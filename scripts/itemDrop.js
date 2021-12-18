@@ -32,6 +32,10 @@ class ItemDrop extends Phaser.Physics.Arcade.Sprite
 					scene.numberof.water -= 1;
 					scene.sound.play("sfx_item_water");
 					break;
+				case 4:
+					scene.numberof.lava -= 1;
+					scene.sound.play("sfx_item_lava");
+					break;
 			}
 			
 			this.destroy();
