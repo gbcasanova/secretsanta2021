@@ -109,20 +109,6 @@ class Level extends Phaser.Scene
 			this.numberof.lava + "\n"
 		);
 	}
-
-	import_objects(layer)
-	{
-		/* Import objects from layer.
-        layer.forEach(object => 
-		{
-			switch(object.type)
-			{
-				case "tree":
-					new Tree(this, object.x, object.y, 0);
-					break;
-			}
-		})*/
-	}
 	
     create()
     {
@@ -134,8 +120,6 @@ class Level extends Phaser.Scene
 		let tileset = map.addTilesetImage("tileset", "tileset");
 		map.createLayer("ground", tileset);
 		map.createLayer("ground2", tileset);
-		//let objectlayer = map.getObjectLayer("objects")["objects"];
-		//this.import_objects(objectlayer);
 		this.physics.world.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
 		this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
 		
