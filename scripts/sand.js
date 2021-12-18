@@ -1,8 +1,8 @@
-class Rock extends Phaser.Physics.Arcade.Sprite
+class Sand extends Phaser.Physics.Arcade.Sprite
 {
 	constructor(scene, x, y)
 	{
-		super(scene, x, y, "breakTiles", 0);
+		super(scene, x, y, "breakTiles", 1);
 		
 		// Add to updatelist.
         scene.add.existing(this);
@@ -31,12 +31,12 @@ class Rock extends Phaser.Physics.Arcade.Sprite
 				this.collected = true;
 				this.setTint("0xADADAD");
 				this.disableInteractive();
-				scene.sound.play("sfx_pickaxe");
+				scene.sound.play("sfx_shovel");
 				
-				let rockItem = new ItemDrop(scene, this.x, this.y, 0)
+				let diamondItem = new ItemDrop(scene, this.x, this.y, 2)
 				
 				let tween = scene.tweens.add({
-					targets: rockItem,
+					targets: diamondItem,
 					alpha: 1,
 					y: {from: this.y, to: this.y + 80},
 					ease: 'Back.easeInOut',  
@@ -60,7 +60,7 @@ class Rock extends Phaser.Physics.Arcade.Sprite
 		{
 			if (this.pointer_in)
 			{
-				if (this.scene.current_tool == 0)
+				if (this.scene.current_tool == 1)
 				{
 					this.setTint("0xD7D7D7");
 					this.collectable_worthy = true;

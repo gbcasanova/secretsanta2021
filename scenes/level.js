@@ -25,7 +25,7 @@ class Level extends Phaser.Scene
 		// Load music & sound effects.
 		this.load.audio("sfx_axe",    "sounds/sfx_axe.ogg");
 		this.load.audio("sfx_pickaxe","sounds/sfx_pickaxe.ogg");
-		this.load.audio("sfx_shovel", "sounds/sfx_pickaxe.ogg");
+		this.load.audio("sfx_shovel", "sounds/sfx_shovel.ogg");
 		this.load.audio("sfx_walk",   "sounds/sfx_walk.ogg");
 		
 		this.load.audio("sfx_item_diamond","sounds/sfx_item_diamond.ogg");
@@ -142,7 +142,6 @@ class Level extends Phaser.Scene
 		let random = Phaser.Math.Between;
 		
 		this.numberof = {}
-		this.numberof.rocks = 0;
 		
 		this.numberof.rocks = random(2, 10); // ROCKS.
 		for (let i = 0; i < this.numberof.rocks; i++) {
@@ -155,7 +154,11 @@ class Level extends Phaser.Scene
 			let tree = new Tree(this, random(60, 795), random(100, 728), random(0, 1));
 		}
 		
-		this.numberof.diamonds = 0;
+		this.numberof.diamonds = random(8, 15); // DIAMONDS.
+		for (let i = 0; i < this.numberof.diamonds; i++) {
+			let sand = new Sand(this, random(35, 1199), random(772, 1198));
+		}
+		
 		this.numberof.water = 0;
 		this.numberof.lava = 0;
 		
