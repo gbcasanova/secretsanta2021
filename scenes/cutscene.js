@@ -32,6 +32,10 @@ class Cutscene extends Phaser.Scene
 				this.load.audio("cutscene0", "sounds/cutscenes/cutscene3_0.mp3")
 				this.load.audio("cutscene1", "sounds/cutscenes/cutscene3_1.mp3")
 				break;
+			case 4:
+				this.load.audio("cutscene0", "sounds/cutscenes/cutscene4_0.mp3")
+				this.load.audio("cutscene1", "sounds/cutscenes/cutscene4_1.mp3")
+				break;
 		}
 		
     }
@@ -64,7 +68,14 @@ class Cutscene extends Phaser.Scene
 		
 		// Switch scenes.
 		this.cameras.main.once('camerafadeoutcomplete', function (camera) {
-			this.scene.start("CraftLevel")
+			if (level.game >= 4)
+			{
+				this.scene.start("PlatformLevel")
+			}
+			else
+			{
+				this.scene.start("CraftLevel")
+			}
 		}, this)
 		
     }

@@ -14,7 +14,12 @@ Raving Energy (faster) by Kevin MacLeod
 Link: https://incompetech.filmmusic.io/song/5030-raving-energy-faster-
 License: https://filmmusic.io/standard-license
 
+Welcome To Horrorland by Kevin MacLeod
+Link: https://incompetech.filmmusic.io/song/5016-welcome-to-horrorland
+License: https://filmmusic.io/standard-license
+
 Sonic CD Time Warp Sound Effect - Sega
-Sonic jump Sound Effect - Sega
-Mario Death Sound Effect - Nintendo
-Minecraft Creeper Sound Effect - Mojang
+Sonic jump Sound Effect         - Sega
+Streets of Rage Backgrounds     - Sega
+Mario Death Sound Effect        - Nintendo
+Minecraft Creeper Sound Effect  - Mojang

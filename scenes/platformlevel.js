@@ -46,6 +46,22 @@ class PlatformLevel extends Phaser.Scene
 				this.load.image("background2", "sprites/backgrounds/bg_skulland2.png");
 				this.load.tilemapTiledJSON("tilemap", "tilemaps/skulland.json");
 				break;
+			
+			case 3: // Guild.
+				this.load.audio("music", "sounds/guildsong.mp3");
+				this.load.image("background0", "sprites/backgrounds/bg_guild0.png");
+				this.load.image("background1", "sprites/backgrounds/bg_guild2.png");
+				this.load.image("background2", "sprites/backgrounds/bg_guild1.png");
+				this.load.tilemapTiledJSON("tilemap", "tilemaps/guild.json");
+				break;
+			
+			case 4: // Guild 2.
+				this.load.audio("music", "sounds/guildsong.mp3");
+				this.load.image("background0", "sprites/backgrounds/bg_guild0.png");
+				this.load.image("background1", "sprites/backgrounds/bg_guild2.png");
+				this.load.image("background2", "sprites/backgrounds/bg_guild1.png");
+				this.load.tilemapTiledJSON("tilemap", "tilemaps/guild.json");
+				break;
 		}
 		
 		this.load.audio("sfx_dead", "sounds/sfx_dead.mp3");

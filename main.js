@@ -31,6 +31,6 @@ var config = {
     scene: [SceneSelector, Menu, CraftLevel, Cutscene, TravelAnim, PlatformLevel]
 };
 
-var level_game = 3;
+var level_game = 4;
 
 var game = new Phaser.Game(config);
