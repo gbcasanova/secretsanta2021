@@ -21,6 +21,7 @@ class TravelAnim extends Phaser.Scene
 		// LEVEL NAMES.
 		this.level_names = [];
 		this.level_names[0] = "MUSTAFAR, The Fire Planet";
+		this.level_names[1] = "  MARS, The Red Desert";
 		
 		// Create text.
 		this.add.text(70, 380, "Arriving at:\n" + this.level_names[level_game], {
