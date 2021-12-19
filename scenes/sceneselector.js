@@ -37,6 +37,26 @@ class SceneSelector extends Phaser.Scene
                 this.scene.start(textButton.text);
             }, this);
         }
+		
+		let changeLevel = this.add.text(8, 300, "Level: " + level_game, {fontFamily: "PinkChicken-Regular"})
+        changeLevel.setInteractive({cursor: 'pointer'})
+		changeLevel.setColor("#93C54B")
+		
+		changeLevel.on('pointerover', () => 
+        { 
+            changeLevel.setColor("#3D85C6")
+        });
+    
+        changeLevel.on('pointerout', () => 
+        { 
+            changeLevel.setColor("#93C54B")
+        });
+
+        changeLevel.on('pointerdown', function(event) 
+        {
+            level_game += 1
+			changeLevel.setText("Level: " + level_game)
+        }, this);
     }
 
     update(time, delta)
