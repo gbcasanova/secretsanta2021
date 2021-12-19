@@ -18,6 +18,10 @@ Welcome To Horrorland by Kevin MacLeod
 Link: https://incompetech.filmmusic.io/song/5016-welcome-to-horrorland
 License: https://filmmusic.io/standard-license
 
+Strength Of The Titans by Kevin MacLeod
+Link: https://incompetech.filmmusic.io/song/5744-strength-of-the-titans
+License: https://filmmusic.io/standard-license
+
 Sonic CD Time Warp Sound Effect - Sega
 Sonic jump Sound Effect         - Sega
 Streets of Rage Backgrounds     - Sega

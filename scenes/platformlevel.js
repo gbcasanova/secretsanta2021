@@ -19,6 +19,7 @@ class PlatformLevel extends Phaser.Scene
 		this.load.image("tileset",  "sprites/tileset.png");
 		this.load.image("thornpole","sprites/thornpole.png")
 		this.load.image("creeper","sprites/creeper.png")
+		this.load.image("codinglord","sprites/codinglord.png")
 		
 		// Load backgrounds.
         switch(level_game)
@@ -56,11 +57,11 @@ class PlatformLevel extends Phaser.Scene
 				break;
 			
 			case 4: // Guild 2.
-				this.load.audio("music", "sounds/guildsong.mp3");
+				this.load.audio("music", "sounds/endsong.mp3");
 				this.load.image("background0", "sprites/backgrounds/bg_guild0.png");
 				this.load.image("background1", "sprites/backgrounds/bg_guild2.png");
 				this.load.image("background2", "sprites/backgrounds/bg_guild1.png");
-				this.load.tilemapTiledJSON("tilemap", "tilemaps/guild.json");
+				this.load.tilemapTiledJSON("tilemap", "tilemaps/guild2.json");
 				break;
 		}
 		
@@ -107,7 +108,14 @@ class PlatformLevel extends Phaser.Scene
 		this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
 		
 		// Thornpole.
-		this.thornpole = this.add.image(-100, 0, "thornpole").setOrigin(0,0).setDepth(2000)
+		if (level_game < 4)
+		{
+			this.thornpole = this.add.image(-100, 0, "thornpole").setOrigin(0,0).setDepth(2000)			
+		}
+		else
+		{
+			this.thornpole = this.add.image(-300, 0, "codinglord").setOrigin(0,0).setDepth(2000)			
+		}
 		this.physics.world.enable(this.thornpole);
 		this.physics.add.overlap(this.player, this.thornpole, function(){
 			this.resetLevel();
@@ -115,15 +123,18 @@ class PlatformLevel extends Phaser.Scene
 			
 		
 		// Create text.
-		this.add.text(10, 4, "Jump around with the SPACE key and deliver the\npackage at the end of the level!", {
-			fontFamily: "PinkChicken-Regular",
-			stroke: "0x000000",
-			strokeThickness: 7,
-			align: "center"
-		})
-			.setDepth(2000)
-			.setFontSize(25)
-			.setScrollFactor(0);
+		if (level_game < 4)
+		{
+			this.add.text(10, 4, "Jump around with the SPACE key and deliver the\npackage at the end of the level!", {
+				fontFamily: "PinkChicken-Regular",
+				stroke: "0x000000",
+				strokeThickness: 7,
+				align: "center"
+			})
+				.setDepth(2000)
+				.setFontSize(25)
+				.setScrollFactor(0);
+		}
     }
 	
 	resetLevel()
@@ -211,6 +222,17 @@ class PlatformLevel extends Phaser.Scene
 					this.physics.add.overlap(this.player, upsidespike, function(){
 						this.resetLevel();
 					}, null, this)
+                    break;
+					
+				case "fakecreeper":
+                    let fakecreeper = this.add.image(object.x, object.y, "creeper").setOrigin(0, 1)
+					this.physics.world.enable(fakecreeper);
+					this.physics.add.overlap(this.player, fakecreeper, function(){
+						this.nextLevel();
+						this.cameras.main.shake(200);
+						this.sound.play("sfx_creeper");
+						fakecreeper.destroy();
+					}, null, this)					
                     break;
             }
         })
