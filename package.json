@@ -1,0 +1,11 @@
+{
+    "name": "FallCraft",
+    "version": "1.0.0",
+    "main": "index.js",
+    "scripts": {
+        "start": "electron ."
+    },
+    "devDependencies": {
+        "electron": "^16.0.5"
+    }
+}
