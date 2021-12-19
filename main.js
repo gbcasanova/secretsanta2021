@@ -29,9 +29,8 @@ var config = {
 	},
 	
     scene: [SceneSelector, Menu, CraftLevel, Cutscene, TravelAnim, PlatformLevel]
-	//scene: [CraftLevel, Menu, Cutscene, TravelAnim]
 };
 
-var level_game = 0;
+var level_game = 2;
 
 var game = new Phaser.Game(config);

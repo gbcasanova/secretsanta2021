@@ -38,6 +38,14 @@ class PlatformLevel extends Phaser.Scene
 				this.load.image("background2", "sprites/backgrounds/bg_mars2.png");
 				this.load.tilemapTiledJSON("tilemap", "tilemaps/mars.json");
 				break;
+			
+			case 2: // Skul-Land.
+				this.load.audio("music", "sounds/skulsong.mp3");
+				this.load.image("background0", "sprites/backgrounds/bg_mars0.png");
+				this.load.image("background1", "sprites/backgrounds/bg_mars1.png");
+				this.load.image("background2", "sprites/backgrounds/bg_mars2.png");
+				this.load.tilemapTiledJSON("tilemap", "tilemaps/mars.json");
+				break;
 		}
 		
 		this.load.audio("sfx_dead", "sounds/sfx_dead.mp3");

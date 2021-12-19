@@ -10,9 +10,11 @@ Desert City by Kevin MacLeod
 Link: https://incompetech.filmmusic.io/song/3639-desert-city
 License: https://filmmusic.io/standard-license
 
+Raving Energy (faster) by Kevin MacLeod
+Link: https://incompetech.filmmusic.io/song/5030-raving-energy-faster-
+License: https://filmmusic.io/standard-license
+
 Sonic CD Time Warp Sound Effect - Sega
 Sonic jump Sound Effect - Sega
-
 Mario Death Sound Effect - Nintendo
-
 Minecraft Creeper Sound Effect - Mojang
