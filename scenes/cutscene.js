@@ -28,6 +28,10 @@ class Cutscene extends Phaser.Scene
 				this.load.audio("cutscene0", "sounds/cutscenes/cutscene2_0.mp3")
 				this.load.audio("cutscene1", "sounds/cutscenes/cutscene2_1.mp3")
 				break;
+			case 3:
+				this.load.audio("cutscene0", "sounds/cutscenes/cutscene3_0.mp3")
+				this.load.audio("cutscene1", "sounds/cutscenes/cutscene3_1.mp3")
+				break;
 		}
 		
     }
