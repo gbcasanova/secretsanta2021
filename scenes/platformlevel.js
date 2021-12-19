@@ -41,10 +41,10 @@ class PlatformLevel extends Phaser.Scene
 			
 			case 2: // Skul-Land.
 				this.load.audio("music", "sounds/skulsong.mp3");
-				this.load.image("background0", "sprites/backgrounds/bg_mars0.png");
-				this.load.image("background1", "sprites/backgrounds/bg_mars1.png");
-				this.load.image("background2", "sprites/backgrounds/bg_mars2.png");
-				this.load.tilemapTiledJSON("tilemap", "tilemaps/mars.json");
+				this.load.image("background0", "sprites/backgrounds/bg_skulland0.png");
+				this.load.image("background1", "sprites/backgrounds/bg_skulland1.png");
+				this.load.image("background2", "sprites/backgrounds/bg_skulland2.png");
+				this.load.tilemapTiledJSON("tilemap", "tilemaps/skulland.json");
 				break;
 		}
 		
@@ -77,7 +77,7 @@ class PlatformLevel extends Phaser.Scene
 			.setScrollFactor(0);
 		
 		// Level.
-		this.player = new PlatformPlayer(this, 200, 100);
+		this.player = new PlatformPlayer(this, 200, 160);
 		
 		let map = this.make.tilemap({key: "tilemap"}); // Tilemap.
 		let tileset = map.addTilesetImage("tileset", "tileset");
@@ -187,6 +187,14 @@ class PlatformLevel extends Phaser.Scene
 						repeat: -1,            
 						yoyo: true
 					});
+                    break;
+				
+				case "upsidespike":
+                    let upsidespike = this.add.sprite(object.x, object.y, "objectsprites", 1).setOrigin(0, 1)
+					this.physics.world.enable(upsidespike);
+					this.physics.add.overlap(this.player, upsidespike, function(){
+						this.resetLevel();
+					}, null, this)
                     break;
             }
         })

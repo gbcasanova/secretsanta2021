@@ -50,11 +50,19 @@ class PlatformPlayer extends Phaser.Physics.Arcade.Sprite
 				this.setVelocityX(300)
 				this.scene.thornpole.body.setVelocityX(300)
 				
-				if (this.space_key.isDown)
+				if (level_game < 2)
 				{
-					this.setVelocityY(-330);
-					this.scene.sound.play("sfx_jump");
+					if (this.space_key.isDown)
+					{
+						this.setVelocityY(-330);
+						this.scene.sound.play("sfx_jump");
+					}
 				}
+			}
+			
+			if (level_game >= 2 && this.space_key.isDown)
+			{
+				this.setVelocityY(-200);
 			}
 			
 			// Jumping animation.
