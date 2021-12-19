@@ -193,8 +193,6 @@ class CraftLevel extends Phaser.Scene
 					repeat: -1,            
 					yoyo: true
 				});
-				
-				creeper.depth = cy + creeper.displayHeight;
 			}
 		}
 		
