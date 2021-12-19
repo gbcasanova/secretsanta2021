@@ -7,12 +7,18 @@ class PlatformLevel extends Phaser.Scene
 
     preload()
     {
-		this.cache.tilemap.remove("tilemap")
+		// Clear cache.
+		this.cache.tilemap.remove("tilemap");
+		this.cache.audio.remove("music");
+		this.textures.remove("background0");
+		this.textures.remove("background1");
+		this.textures.remove("background2");
 		
 		this.load.spritesheet("fallguy", "sprites/fallguy.png", {frameWidth: 66, frameHeight: 82})
 		this.load.spritesheet("objectsprites", "sprites/objectsprites.png", {frameWidth: 66, frameHeight: 66})
 		this.load.image("tileset",  "sprites/tileset.png");
 		this.load.image("thornpole","sprites/thornpole.png")
+		this.load.image("creeper","sprites/creeper.png")
 		
 		// Load backgrounds.
         switch(level_game)
@@ -24,10 +30,19 @@ class PlatformLevel extends Phaser.Scene
 				this.load.image("background2", "sprites/backgrounds/bg_mustafar2.png");
 				this.load.tilemapTiledJSON("tilemap", "tilemaps/mustafar.json");
 				break;
+				
+			case 1: // Mars.
+				this.load.audio("music", "sounds/marsong.mp3");
+				this.load.image("background0", "sprites/backgrounds/bg_mars0.png");
+				this.load.image("background1", "sprites/backgrounds/bg_mars1.png");
+				this.load.image("background2", "sprites/backgrounds/bg_mars2.png");
+				this.load.tilemapTiledJSON("tilemap", "tilemaps/mars.json");
+				break;
 		}
 		
-		this.load.audio("sfx_dead", "sounds/sfx_dead.mp3")
-		this.load.audio("sfx_jump", "sounds/sfx_jump.mp3")
+		this.load.audio("sfx_dead", "sounds/sfx_dead.mp3");
+		this.load.audio("sfx_jump", "sounds/sfx_jump.mp3");
+		this.load.audio("sfx_creeper", "sounds/sfx_creeper.mp3");
     }
 
     create()
@@ -36,7 +51,7 @@ class PlatformLevel extends Phaser.Scene
 		
 		this.sound.stopAll();
 		this.sound.play("music");
-		this.cameras.main.fadeIn(2000, "255", "255", "255");
+		this.cameras.main.fadeIn(2000);
 		this.sys.canvas.style.cursor = 'none';
 		
 		// Background.
@@ -144,6 +159,26 @@ class PlatformLevel extends Phaser.Scene
 					this.physics.add.overlap(this.player, end, function(){
 						this.nextLevel();
 					}, null, this)
+                    break;
+					
+				case "creeper":
+                    let creeper = this.add.image(object.x, object.y, "creeper").setOrigin(0, 1)
+					this.physics.world.enable(creeper);
+					this.physics.add.overlap(this.player, creeper, function(){
+						this.resetLevel();
+						this.cameras.main.shake(200);
+						this.sound.play("sfx_creeper");
+						creeper.destroy();
+					}, null, this)
+					
+					let tween = this.tweens.add({
+						targets: creeper,
+						x: {from: creeper.x, to: creeper.x + 64},
+						ease: 'Linear',
+						duration: 1000,
+						repeat: -1,            
+						yoyo: true
+					});
                     break;
             }
         })
