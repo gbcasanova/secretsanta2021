@@ -6,6 +6,10 @@ Ultra Polka by Kevin MacLeod
 Link: https://incompetech.filmmusic.io/song/4557-ultra-polka
 License: https://filmmusic.io/standard-license
 
+Desert City by Kevin MacLeod
+Link: https://incompetech.filmmusic.io/song/3639-desert-city
+License: https://filmmusic.io/standard-license
+
 Sonic CD Time Warp Sound Effect - Sega
 Sonic jump Sound Effect - Sega
 
