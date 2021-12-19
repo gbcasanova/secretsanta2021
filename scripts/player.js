@@ -53,6 +53,7 @@ class Player extends Phaser.Physics.Arcade.Sprite
 		this.body.setOffset(14, 58);
 		
 		// Movement.
+		this.inactive = false;
 		this.moving = false;
 		this.accel  = 900;
 		this.drag   = 900;
@@ -68,7 +69,6 @@ class Player extends Phaser.Physics.Arcade.Sprite
         this.walking_sound.setLoop(true)
         this.walking_sound.setMute(true)
         this.walking_sound.play()
-		
 	}
 	
 	movement()
@@ -158,14 +158,12 @@ class Player extends Phaser.Physics.Arcade.Sprite
 	{
 		super.preUpdate(time, delta)
 		
-		this.movement();
-		this.animation();
-		
-		this.depth = this.y + this.displayHeight/2;
-		
-		if (this.keys.space.isDown)
+		if (!this.inactive)
 		{
-			console.log("X: " + this.x + " Y: " + this.y)
+			this.movement();
+			this.animation();
+		
+			this.depth = this.y + this.displayHeight/2;
 		}
 	}
 }

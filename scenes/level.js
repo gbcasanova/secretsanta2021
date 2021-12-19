@@ -16,7 +16,8 @@ class CraftLevel extends Phaser.Scene
 		this.load.spritesheet("breakTiles","sprites/breakTiles.png",{frameWidth: 64, frameHeight: 64});
 		
 		this.load.image("rocket", "sprites/rocket.png");
-		this.load.image("tileset", "sprites/tileset.png");
+		this.load.image("tileset","sprites/tileset.png");
+		this.load.image("creeper","sprites/creeper.png")
 		this.load.tilemapTiledJSON("tilemap", "tilemaps/test.json");
 		
 		// Gui sprites.
@@ -39,7 +40,9 @@ class CraftLevel extends Phaser.Scene
 		this.load.audio("sfx_item_wood",   "sounds/sfx_item_wood.ogg");
 		
 		this.load.audio("sfx_rocket", "sounds/sfx_rocket.mp3");
-		this.load.audio("craftsong", "sounds/craftsong.mp3")
+		this.load.audio("craftsong",  "sounds/craftsong.mp3")
+		this.load.audio("sfx_creeper","sounds/sfx_creeper.mp3");
+		this.load.audio("sfx_dead", "sounds/sfx_dead.mp3");
     }
 	
 	create_gui()
@@ -120,6 +123,8 @@ class CraftLevel extends Phaser.Scene
 	
     create()
     {
+		this.levelover = false;
+		this.travel = false;
 		this.cameras.main.fadeIn(1000);
 		this.player = new Player(this, 120, 120);
 		
@@ -164,14 +169,63 @@ class CraftLevel extends Phaser.Scene
 			let lava = new Lava(this, random(66, 1199), random(55, 1100));
 		}
 		
+		if (level_game >= 2)
+		{
+			for (let i = 0; i < 4; i++) {
+				let cx = random(66, 1199);
+				let cy = random(55, 1100);
+				
+				let creeper = this.add.image(cx, cy, "creeper").setOrigin(0, 1)
+				this.physics.world.enable(creeper);
+				this.physics.add.overlap(this.player, creeper, function(){
+					this.resetLevel();
+					this.cameras.main.shake(200);
+					this.sound.play("sfx_creeper");
+					creeper.destroy();
+				}, null, this)
+					
+				let tween = this.tweens.add({
+					targets: creeper,
+					x: {from: cx, to: cx + 128},
+					y: {from: cy, to: cy + 128},
+					ease: 'Linear',
+					duration: 1000,
+					repeat: -1,            
+					yoyo: true
+				});
+				
+				creeper.depth = cy + creeper.displayHeight;
+			}
+		}
+		
 		this.create_gui(); // Create GUI interface.
 		let rocket = new Rocket(this, 661, 1539)
 		
 		// Fade out. 
 		this.cameras.main.once('camerafadeoutcomplete', function (camera) {
-            this.scene.start("TravelAnim");
+			if (this.travel)
+			{
+				this.scene.start("TravelAnim");
+			}
         }, this);
     }
+	
+	resetLevel()
+	{
+		if (!this.levelover)
+		{
+			this.levelover = true
+			this.sound.stopAll();
+			this.cameras.main.fadeOut(2000, "255", "0", "0");
+			this.sound.play("sfx_dead");
+			
+			// Fade out. 
+			this.cameras.main.once('camerafadeoutcomplete', function (camera) {
+				this.scene.restart();
+			}, this);	
+			this.player.inactive = true;
+		}
+	}
 
     update(time, delta)
     {

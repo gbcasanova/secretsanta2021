@@ -28,6 +28,7 @@ class Rocket extends Phaser.Physics.Arcade.Sprite
 					repeat: 0,         
 					yoyo: false,
 					onComplete: function(){
+						scene.travel = true;
 						scene.cameras.main.fadeOut(1000)
 					}
 				});
