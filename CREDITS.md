@@ -1,3 +1,9 @@
+A Game By Gabriel Casanova
+
+Inspired by Mojang's MINECRAFT and Develover's FALL GUYS
+
+Menu Music by Gabriel Casanova
+
 A Very Brady Special by Kevin MacLeod
 Link: https://incompetech.filmmusic.io/song/5760-a-very-brady-special
 License: https://filmmusic.io/standard-license
@@ -27,3 +33,5 @@ Sonic jump Sound Effect         - Sega
 Streets of Rage Backgrounds     - Sega
 Mario Death Sound Effect        - Nintendo
 Minecraft Creeper Sound Effect  - Mojang
+
+Thank you for playing my game!!
