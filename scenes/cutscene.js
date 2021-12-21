@@ -78,7 +78,7 @@ class Cutscene extends Phaser.Scene
 			}
 			else if (level_game == 5)
 			{
-				this.level_Game = 0;
+				level_Game = 0;
 				this.scene.start("Menu");
 			}
 			else
